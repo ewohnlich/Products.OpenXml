@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # $Id$
 """
 Our transform (most job is done by openxmllib)
@@ -7,23 +7,15 @@ import mimetypes
 
 import openxmllib
 from Products.OpenXml import logger
-from Products.PortalTransforms.interfaces import itransform
+from Products.PortalTransforms.interfaces import ITransform
 from openxmllib import contenttypes as ct
+from zope.interface import implementer
 
 from .config import SITE_CHARSET, TRANSFORM_NAME
 
-try:
-    # Plone 4
-    from Products.PortalTransforms.interfaces import ITransform
-except ImportError:
-    # Plone 3
-    from Products.PortalTransforms.z3.interfaces import ITransform
 
-from zope.interface import implements
-
+@implementer(ITransform)
 class openxml_to_text:
-    implements(ITransform)
-    __implements__ = itransform
     __name__ = TRANSFORM_NAME
 
     inputs = (
@@ -39,8 +31,8 @@ class openxml_to_text:
         ct.CT_SPREADSHEET_XLTX_PUBLIC,
         ct.CT_SPREADSHEET_XLTM_PUBLIC,
         # FIXME: note sure we can honour below types...
-#        '*.xlam': ct.CT_SPREADSHEET_XLAM_PUBLIC,
-#        '*.xlsb': ct.CT_SPREADSHEET_XLSB_PUBLIC
+        #        '*.xlam': ct.CT_SPREADSHEET_XLAM_PUBLIC,
+        #        '*.xlsb': ct.CT_SPREADSHEET_XLSB_PUBLIC
 
         # Presentation formats
         ct.CT_PRESENTATION_PPTX_PUBLIC,
@@ -50,16 +42,16 @@ class openxml_to_text:
         ct.CT_PRESENTATION_PPSX_PUBLIC,
         ct.CT_PRESENTATION_PPSM_PUBLIC,
         # FIXME: Not sure we can honour below types
-#        '*.ppam': ct.CT_PRESENTATION_PPAM_PUBLIC
-        )
+        #        '*.ppam': ct.CT_PRESENTATION_PPAM_PUBLIC
+    )
 
     output = 'text/plain'
 
     output_encoding = SITE_CHARSET
 
-    def __init__(self,name=None):
+    def __init__(self, name=None):
         if name:
-            self.__name__=name
+            self.__name__ = name
         return
 
     def name(self):
@@ -67,7 +59,7 @@ class openxml_to_text:
 
     def convert(self, orig, data, **kwargs):
 
-        #orig_file = kwargs.get('filename') or 'unknown.xxx'
+        # orig_file = kwargs.get('filename') or 'unknown.xxx'
         mimetype = kwargs.get('mimetype')
         filename = kwargs.get('filename') or 'unknown.xxx'
         if mimetype is None:
@@ -80,6 +72,7 @@ class openxml_to_text:
             logger.error("Crappy file provided, returning empty text", exc_info=True)
             data.setData('')
         return data
+
 
 def register():
     return openxml_to_text()
