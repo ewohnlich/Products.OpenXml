@@ -3,6 +3,6 @@
 """The OpenXml product"""
 
 import logging
-import config
+from . import config
 
 logger = logging.getLogger(config.PROJECTNAME)
