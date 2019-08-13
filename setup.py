@@ -16,9 +16,10 @@ setup(
     long_description=_long_description,
     classifiers=[
         "Framework :: Plone",
+        "Framework :: Plone :: 5.2",
         "Framework :: Zope2",
         "Programming Language :: Python",
-        ],
+    ],
     keywords='Zope CMF Plone openxml',
     author='Gilles Lenfant',
     author_email='gilles.lenfant@gmail.com',
@@ -31,6 +32,6 @@ setup(
     download_url='http://plone.org/products/openxml',
     install_requires=[
         'setuptools',
-        'openxmllib>=1.1',
-        ],
-    )
+        'openxmllib>=1.1.2',
+    ],
+)

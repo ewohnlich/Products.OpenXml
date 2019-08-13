@@ -15,7 +15,7 @@ from .config import SITE_CHARSET, TRANSFORM_NAME
 
 
 @implementer(ITransform)
-class openxml_to_text:
+class OpenxmlToText:
     __name__ = TRANSFORM_NAME
 
     inputs = (
@@ -75,4 +75,4 @@ class openxml_to_text:
 
 
 def register():
-    return openxml_to_text()
+    return OpenxmlToText()
