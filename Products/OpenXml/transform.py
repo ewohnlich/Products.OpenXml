@@ -4,11 +4,13 @@
 Our transform (most job is done by openxmllib)
 """
 import mimetypes
+
 import openxmllib
-from openxmllib import contenttypes as ct
-from Products.PortalTransforms.interfaces import itransform
-from config import SITE_CHARSET, TRANSFORM_NAME
 from Products.OpenXml import logger
+from Products.PortalTransforms.interfaces import itransform
+from openxmllib import contenttypes as ct
+
+from .config import SITE_CHARSET, TRANSFORM_NAME
 
 try:
     # Plone 4
