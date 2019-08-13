@@ -69,7 +69,7 @@ class MetaProvider(object):
          img_suffix, img_fp = cover
          img_data = img_fp.read()
          img_fp.close()
-         return (img_suffix, img_data)
+         return img_suffix, img_data
       else:
          return None
 

@@ -73,7 +73,7 @@ class openxml_to_text:
         try:
             doc = openxmllib.openXmlDocument(data=orig, mime_type=mimetype)
             data.setData(doc.indexableText().encode(SITE_CHARSET, 'replace'))
-        except ValueError, e:
+        except ValueError:
             # Crappy data provided to the transform.
             logger.error("Crappy file provided, returning empty text", exc_info=True)
             data.setData('')
