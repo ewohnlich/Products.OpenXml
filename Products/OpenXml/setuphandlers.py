@@ -1,14 +1,15 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # $Id$
 """Setup handlers for OpenXml"""
 
 from Products.CMFCore.utils import getToolByName
-import config
 from Products.OpenXml import logger
+
+from . import config
 
 
 def isNotCurrentProfile(context):
-        return context.readDataFile("openxml_marker.txt") is None
+    return context.readDataFile("openxml_marker.txt") is None
 
 
 def setupOpenXml(context):
@@ -61,5 +62,3 @@ def removeOpenXml(context):
     transforms_tool = getToolByName(site, 'portal_transforms')
     transforms_tool.unregisterTransform(config.TRANSFORM_NAME)
     return
-
-
