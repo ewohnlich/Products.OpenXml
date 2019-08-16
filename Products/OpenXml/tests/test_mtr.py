@@ -5,7 +5,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.MimetypesRegistry.interfaces import IMimetype
 from Products.PloneTestCase import PloneTestCase
 from Products.OpenXml.config import office_mimetypes
-import common
+from . import common
 
 class MTRTestCase(PloneTestCase.PloneTestCase):
 
@@ -22,7 +22,7 @@ class MTRTestCase(PloneTestCase.PloneTestCase):
         for mt_dict in office_mimetypes:
             mt_string = mt_dict['mimetypes'][0]
             mimetype = mtr.lookup(mt_string)
-            self.failUnless(
+            self.assertTrue(
                 len(mimetype) > 0,
                 "Didn't find MimeType obj for %s" % mt_string)
             if len(mimetype) > 0:
@@ -30,7 +30,7 @@ class MTRTestCase(PloneTestCase.PloneTestCase):
                                   IMimetype.isImplementedBy or \
                                   IMimetype.providedBy
 
-                self.failUnless(
+                self.assertTrue(
                     lookup_method(mtr.lookup(mt_string)[0]),
                     "Didn't find MimeType obj for %s" % mt_string)
         return
@@ -44,7 +44,7 @@ class MTRTestCase(PloneTestCase.PloneTestCase):
             ext = mt_dict['extensions'][0]
             expected = mt_dict['mimetypes'][0]
             got = mtr.lookupExtension(ext).normalized()
-            self.failUnlessEqual(expected, got)
+            self.assertEqual(expected, got)
         return
 
 

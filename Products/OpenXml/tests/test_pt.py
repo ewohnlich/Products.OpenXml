@@ -2,11 +2,11 @@
 # $Id$
 """Testing portal_transforms settings"""
 import os
-import StringIO
+import io
 from Products.CMFCore.utils import getToolByName
 from Products.PloneTestCase import PloneTestCase
 from Products.OpenXml.config import TRANSFORM_NAME
-import common
+from . import common
 
 class PTTestCase(PloneTestCase.PloneTestCase):
 
@@ -19,7 +19,7 @@ class PTTestCase(PloneTestCase.PloneTestCase):
     def testInstallation(self):
         """Checking installation of our transform"""
 
-        self.failUnless(TRANSFORM_NAME in self.pt.objectIds(spec='Transform'),
+        self.assertTrue(TRANSFORM_NAME in self.pt.objectIds(spec='Transform'),
                         "%s transform expected" % TRANSFORM_NAME)
         return
 
@@ -28,7 +28,7 @@ class PTTestCase(PloneTestCase.PloneTestCase):
         """Do we index the text of an openxml office file"""
 
         self.loginAsPortalOwner()
-        class fakefile(StringIO.StringIO):
+        class fakefile(io.StringIO):
             pass
         this_dir = os.path.dirname(os.path.abspath(__file__))
         test_filename = os.path.join(this_dir, 'wordprocessing1.docx')
@@ -41,7 +41,7 @@ class PTTestCase(PloneTestCase.PloneTestCase):
                  "Lenfant", "example", "title")
         st = file_item.SearchableText()
         for word in words:
-            self.failUnless(word in st, "Expected '%s' in indexable text" % word)
+            self.assertTrue(word in st, "Expected '%s' in indexable text" % word)
         return
 
 
